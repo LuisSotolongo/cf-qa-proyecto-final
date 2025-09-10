@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "booking_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "success", "failed"]
+    }
+  },
+  "required": [
+    "id",
+    "booking_id",
+    "status"
+  ],
+  "additionalProperties": false
+}

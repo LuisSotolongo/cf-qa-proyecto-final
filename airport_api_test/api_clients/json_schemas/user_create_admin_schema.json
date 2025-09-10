@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "password": {
+      "type": "string",
+      "minLength": 6
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["passenger", "admin"]
+    }
+  },
+  "required": [
+    "email",
+    "password",
+    "full_name",
+    "role"
+  ],
+  "additionalProperties": false
+}
