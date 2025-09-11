@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 from faker import Faker
 import json
 import pytest
-from ...utils.reports_utils import save_html_report, save_json_screenshot
+from ...utils.reports_utils import save_html_report
+from jsonschema import validate, ValidationError
 
 fake = Faker()
 load_dotenv()
@@ -33,8 +34,7 @@ def test_signup_exitoso():
     assert data["role"] == "passenger"
 
 
-# Prueba de registro con email ya existente, Roles permitos passenger, admin.
-
+# prueba de registro con email ya existente, Roles permitidos passenger, admin.
 def test_signup_email_existente():
     user = os.getenv("ADMIN_USER")
     password = os.getenv("ADMIN_PASSWORD")
@@ -50,8 +50,7 @@ def test_signup_email_existente():
     assert "detail" in response.json()
 
 
-# Prueba de registro con rol inválido
-
+# prueba de registro con rol inválido detectado glitch en la respuesta
 def test_signup_rol_invalido():
     url = os.getenv("BASE_URL")
     payload = {
