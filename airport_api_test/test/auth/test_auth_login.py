@@ -8,8 +8,8 @@ def login(username, password):
         url + AUTH_LOGIN, data={"username": username, "password": password}, timeout=5)
     return response
 
-# Caso positivo: login exitoso devuelve token válido.
-
+# Caso positivo: login con credenciales válidas devuelve 200 y token.
+# TA-01 Login exitoso
 def test_login_exitoso():
     user = os.getenv("ADMIN_USER")
     password = os.getenv("ADMIN_PASSWORD")
@@ -18,7 +18,7 @@ def test_login_exitoso():
     assert "access_token" in response.json()
 
 # Caso negativo: login con credenciales inválidas devuelve 401.
-
+# TA-02 Login fallido
 def test_login_fallido():
     response = login("usuario_invalido", "password_invalida")
     assert response.status_code == 401

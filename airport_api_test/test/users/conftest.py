@@ -9,39 +9,18 @@ from ...utils.settings import  USERS, AUTH_LOGIN
 load_dotenv()
 fake = faker.Faker()
 
-@pytest.fixture(scope="session")
-def admin_token() -> str:
-    user = os.getenv("ADMIN_USER")
-    password = os.getenv("ADMIN_PASSWORD")
-    url = os.getenv("BASE_URL")
-    response = requests.post(
-        url + AUTH_LOGIN, data ={"username": user, "password": password}, timeout=5)
-    response.raise_for_status()
-    return response.json()["access_token"]
-
-
-
-def test_admin_token(admin_token):
-    return admin_token
-
-
-
 @pytest.fixture
-def auth_headers(admin_token):
+def user_data():
     return {
-        "Authorization": f"Bearer {admin_token}",
-        "Content-Type": "application/json"
+        "email": fake.unique.email(),
+        "password": fake.password(),
+        "full_name": fake.name(),
+        "role": "admin"
     }
 
 @pytest.fixture
-def user(auth_headers, role: str = "passenger"):
+def user(auth_headers, user_data):
     url = os.getenv("BASE_URL")
-    user_data = {
-        "email": fake.email(),
-        "full_name": fake.name(),
-        "password": fake.password(),
-        "role": role
-    }
     response = requests.post(f"{url}{USERS}", json=user_data, headers=auth_headers, timeout=5)
     response.raise_for_status()
     user_created = response.json()
@@ -51,5 +30,3 @@ def user(auth_headers, role: str = "passenger"):
     #     URL + f'/users/{user_created["user_id"]}', headers=auth_headers, timeout=5)
     # delete_response.raise_for_status()
 
-def test_user(user):
-    print(user)
