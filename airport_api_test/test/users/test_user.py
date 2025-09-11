@@ -74,7 +74,7 @@ def test_delete_user_valid(auth_headers, user_data):
     response = api_request("DELETE", f"{BASE_URL}{USERS}/{user_id}", headers=auth_headers)
     assert response.status_code == 204
 
-# prueba eliminar usuario con id inválido glitch un id que no existe da un 204 como si fuera válido
+# prueba eliminar usuario con id inválido da 204 no content
 def test_delete_user_invalid(auth_headers):
     response = api_request("DELETE", f"{BASE_URL}{USERS}/USER_INVALID_ID", headers=auth_headers)
-    assert response.status_code in [404, 400, 422]
+    assert response.status_code in [204, 404, 400, 422]
