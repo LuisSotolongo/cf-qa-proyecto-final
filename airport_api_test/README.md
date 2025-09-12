@@ -21,14 +21,6 @@ Esto permite reutilizar el token y mantener las pruebas organizadas.
 
 ---
 
-Aquí tienes la sección de casos de prueba por endpoint, ahora con el **objetivo** y la **trazabilidad** para cada test, siguiendo el formato solicitado:
-
----
-
-Claro, aquí tienes la sección de casos de prueba por endpoint, con el formato solicitado y el texto del requisito explicando qué valida cada prueba:
-
----
-
 ### Autenticación (`/auth`)
 
 - **Prueba happy path:** Login con credenciales válidas  
