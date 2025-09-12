@@ -1,0 +1,10 @@
+ID: bkg-2e5a2546, Estado: draft, Usuario: usr-91d0617c
+ID: bkg-9bee4910, Estado: paid, Usuario: usr-91d0617c
+ID: bkg-5b25e4e8, Estado: paid, Usuario: usr-91d0617c
+ID: bkg-a573a833, Estado: draft, Usuario: usr-91d0617c
+ID: bkg-d58ee6ec, Estado: paid, Usuario: usr-91d0617c
+ID: bkg-79306f8e, Estado: draft, Usuario: usr-91d0617c
+ID: bkg-2f325467, Estado: paid, Usuario: usr-91d0617c
+ID: bkg-ce5de78f, Estado: draft, Usuario: usr-91d0617c
+ID: bkg-ad6fb90d, Estado: paid, Usuario: usr-91d0617c
+ID: bkg-b2447207, Estado: paid, Usuario: usr-91d0617c

@@ -1,0 +1,1 @@
+Respuesta booking: 201 {"id":"bkg-7e4f7ef0","flight_id":"flt-d593932b","user_id":"usr-91d0617c","status":"draft","passengers":[{"full_name":"Rodney Reese","passport":"gI253650","seat":"34D"}]}

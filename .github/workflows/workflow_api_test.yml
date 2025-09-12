@@ -1,0 +1,56 @@
+name: CI API Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *' # Ejecuta cada 24 horas (a medianoche UTC)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: airport-api-test
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt;
+          else
+            pip install pytest selenium webdriver-manager behave pytest-html pytest-cov pytest-bdd Faker allure-pytest requests;
+          fi
+
+      - name: Ejecutar pruebas con pytest
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          ADMIN_USER: ${{ secrets.ADMIN_USER }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          mkdir -p airport_api_test/reports/html_reports/reports_ci
+          xvfb-run -a pytest -k "test_login_exitoso or test_create_user_valid" --maxfail=1 --disable-warnings \
+            --html=airport_api_test/reports/html/reports/pytest-report.html --self-contained-html \
+            --junitxml=airport_api_test/reports/html/reports/junit.xml \
+            --cov=. --cov-report=term-missing --cov-report=xml:airport_api_test/reports/html/reports/coverage.xml
+
+      - name: Carga de artefactos (Reportes y screenshots)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: |
+            airport_api_test/reports/screenshoots/reports/**
+            **/screenshots/**
+          if-no-files-found: ignore

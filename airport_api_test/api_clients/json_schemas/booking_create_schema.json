@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "flight_id": {
+      "type": "string"
+    },
+    "passengers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "passport": {
+            "type": "string"
+          },
+          "seat": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "full_name",
+          "passport"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "flight_id",
+    "passengers"
+  ],
+  "additionalProperties": false
+}

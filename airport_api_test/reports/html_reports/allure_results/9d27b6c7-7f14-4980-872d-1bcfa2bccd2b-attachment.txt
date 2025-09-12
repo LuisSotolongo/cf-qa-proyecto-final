@@ -1,0 +1,2 @@
+Respuesta booking: 201 {"id":"bkg-ebde10f2","flight_id":"flt-722d447e","user_id":"usr-91d0617c","status":"draft","passengers":[{"full_name":"Shawn Tapia","passport":"GE568354","seat":"19B"}]}
+Respuesta de la API: 400 {'detail': 'Booking already paid/cancelled'}

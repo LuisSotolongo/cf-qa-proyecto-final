@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "iata_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "iata_code",
+    "city",
+    "country"
+  ],
+  "additionalProperties": false
+}

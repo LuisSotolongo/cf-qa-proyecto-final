@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "origin": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "destination": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "departure_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "arrival_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "base_price": {
+      "type": "number"
+    },
+    "aircraft_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "available_seats": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "origin",
+    "destination",
+    "departure_time",
+    "arrival_time",
+    "base_price",
+    "aircraft_id",
+    "id",
+    "available_seats"
+  ],
+  "additionalProperties": false
+}

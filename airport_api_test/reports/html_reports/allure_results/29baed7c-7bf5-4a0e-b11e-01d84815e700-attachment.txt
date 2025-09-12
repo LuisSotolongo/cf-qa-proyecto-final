@@ -1,0 +1,7 @@
+Creando nuevo usuario...
+Usuario creado: usr-255c8759
+Creando nuevo booking...
+Booking creado: bkg-87767963 con estado: draft
+Error making API request: 500 Server Error: Internal Server Error for url: https://cf-automation-airline-api.onrender.com/payments
+Error making API request: 400 Client Error: Bad Request for url: https://cf-automation-airline-api.onrender.com/payments
+Error making API request: 400 Client Error: Bad Request for url: https://cf-automation-airline-api.onrender.com/payments

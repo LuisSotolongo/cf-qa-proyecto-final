@@ -1,0 +1,3 @@
+Usuario creado: usr-19e81f90
+Creando nuevo booking...
+Booking creado: bkg-f921e862 con estado: draft

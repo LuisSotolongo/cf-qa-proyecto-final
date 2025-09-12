@@ -1,0 +1,1 @@
+Respuesta booking: 201 {"id":"bkg-ddad6be1","flight_id":"flt-07043220","user_id":"usr-91d0617c","status":"draft","passengers":[{"full_name":"Dana Lin","passport":"Mz381352","seat":"45E"}]}

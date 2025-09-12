@@ -1,0 +1,1 @@
+{"uuid": "813aaca9-df99-46db-af22-23cdd5275328", "children": ["54046f2c-1a27-4d48-bb13-f064e2eb29f3"], "befores": [{"name": "create_aircraft", "status": "passed", "start": 1757697413815, "stop": 1757697414224}], "afters": [{"name": "create_aircraft::0", "status": "passed", "start": 1757697418830, "stop": 1757697419218}], "start": 1757697413815, "stop": 1757697419218}

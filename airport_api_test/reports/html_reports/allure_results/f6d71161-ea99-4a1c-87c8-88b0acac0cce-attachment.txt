@@ -1,0 +1,1 @@
+Respuesta booking: 201 {"id":"bkg-34f0d8ca","flight_id":"flt-71a6cbac","user_id":"usr-91d0617c","status":"draft","passengers":[{"full_name":"Gary Blanchard","passport":"Sb215980","seat":"13A"}]}

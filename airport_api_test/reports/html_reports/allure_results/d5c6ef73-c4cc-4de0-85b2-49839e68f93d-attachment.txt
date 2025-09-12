@@ -1,0 +1,7 @@
+Creando nuevo usuario...
+Usuario creado: usr-ddd8d61b
+Creando nuevo booking...
+Booking creado: bkg-eaad1b51 con estado: draft
+Error making API request: 422 Client Error: Unprocessable Entity for url: https://cf-automation-airline-api.onrender.com/payments
+Error making API request: 422 Client Error: Unprocessable Entity for url: https://cf-automation-airline-api.onrender.com/payments
+Error making API request: 422 Client Error: Unprocessable Entity for url: https://cf-automation-airline-api.onrender.com/payments
