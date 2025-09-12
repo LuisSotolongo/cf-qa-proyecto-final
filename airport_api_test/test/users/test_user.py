@@ -28,8 +28,8 @@ def test_create_user_invalid(auth_headers):
 # glitch a veces devuelve status code 500, de ahi el reruns
 # TA-05 Listar usuarios con paginación
 @pytest.mark.flaky(reruns=3, reruns_delay=2)
-def test_list_users(auth_headers):
-    response = api_request("GET", f"{BASE_URL}{USERS}?skip=0&limit=10", headers=auth_headers)
+def test_list_users(auth_headers, skip=0, limit=10):
+    response = api_request("GET", f"{BASE_URL}{USERS_LIST}?skip={skip}&limit={limit}", headers=auth_headers)
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 

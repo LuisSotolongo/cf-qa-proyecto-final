@@ -245,11 +245,22 @@ Esto permite reutilizar el token y mantener las pruebas organizadas.
 
 ---
 
-## ¿Cómo añado la trazabilidad?
+## Reporte de pruebas
 
-- En el README, indica qué requisito cubre cada prueba.
-- En el código de los tests, añade comentarios con el número o nombre del requisito.
-- Si usas herramientas como `pytest` y generas informes (`pytest --junitxml=report.xml`), puedes relacionar los tests con los requisitos en el informe.
+[Ver reporte Allure](reports/allure_html/index.html)
+[Ver reporte Pytest-HTML](reports/html_reports/report.html)
+[Ver reporte Pytest-HTML especificos pruebas](reports/html_reports/glitch_xxxxxx.html)
 
 ---
 
+### Reintentos en tests inestables
+
+Para mejorar la confiabilidad de la suite, uso el decorador `@pytest.mark.retry` en los tests que presentan fallos intermitentes. Ejemplo:
+
+Esto reintentará el test hasta 2 veces, con 5 segundos de espera entre intentos.
+
+@pytest.mark.retry(retries=2, delay=5)
+def test_inestable():
+    # código del test
+
+---
