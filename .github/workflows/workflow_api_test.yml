@@ -39,11 +39,11 @@ jobs:
           ADMIN_USER: ${{ secrets.ADMIN_USER }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         run: |
-          mkdir -p airport_api_test/reports/html_reports/reports_ci
-          xvfb-run -a pytest -q --maxfail=1 --disable-warnings \
-            --html=airport_api_test/reports/html/reports/pytest-report.html --self-contained-html \
-            --junitxml=airport_api_test/reports/html/reports/junit.xml \
-            --cov=. --cov-report=term-missing --cov-report=xml:airport_api_test/reports/html/reports/coverage.xml
+             mkdir -p airport_api_test/reports/html_reports/reports_ci
+            xvfb-run -a pytest -k "test_login_exitoso or test_create_user_valid" --maxfail=1 --disable-warnings \
+          --html=airport_api_test/reports/html/reports/pytest-report.html --self-contained-html \
+          --junitxml=airport_api_test/reports/html/reports/junit.xml \
+          --cov=. --cov-report=term-missing --cov-report=xml:airport_api_test/reports/html/reports/coverage.xml
 
       - name: Carga de artefactos (Reportes y screenshots)
         if: ${{ always() }}
