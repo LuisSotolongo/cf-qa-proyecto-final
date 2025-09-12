@@ -1,0 +1,5 @@
+Creando nuevo usuario...
+Usuario creado: usr-a5ecb5f3
+Error making API request: 400 Client Error: Bad Request for url: https://cf-automation-airline-api.onrender.com/auth/signup
+Error making API request: 400 Client Error: Bad Request for url: https://cf-automation-airline-api.onrender.com/auth/signup
+Error making API request: 400 Client Error: Bad Request for url: https://cf-automation-airline-api.onrender.com/auth/signup

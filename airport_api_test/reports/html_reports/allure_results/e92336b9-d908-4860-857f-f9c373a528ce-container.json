@@ -1,0 +1,1 @@
+{"uuid": "a320fbef-86a5-4977-b2c7-3fbdfc5a899b", "children": ["ae430a44-e46a-4610-aa15-d008aef4587b"], "befores": [{"name": "create_aircraft", "status": "passed", "start": 1757698468008, "stop": 1757698468424}], "afters": [{"name": "create_aircraft::0", "status": "passed", "start": 1757698468809, "stop": 1757698469189}], "start": 1757698468008, "stop": 1757698469189}

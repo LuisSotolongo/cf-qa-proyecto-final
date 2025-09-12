@@ -1,0 +1,1 @@
+{"uuid": "57bc42e5-f750-4fe1-a919-477811508938", "children": ["28562017-4ad6-435a-963d-cdae1b7f5e13"], "befores": [{"name": "aircraft_id", "status": "passed", "start": 1757680614642, "stop": 1757680615024}], "afters": [{"name": "aircraft_id::0", "status": "passed", "start": 1757680615435, "stop": 1757680615835}], "start": 1757680614642, "stop": 1757680615835}

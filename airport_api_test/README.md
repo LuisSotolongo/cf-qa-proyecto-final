@@ -21,227 +21,364 @@ Esto permite reutilizar el token y mantener las pruebas organizadas.
 
 ---
 
+Aquí tienes la sección de casos de prueba por endpoint, ahora con el **objetivo** y la **trazabilidad** para cada test, siguiendo el formato solicitado:
+
+---
+
+Claro, aquí tienes la sección de casos de prueba por endpoint, con el formato solicitado y el texto del requisito explicando qué valida cada prueba:
+
+---
+
 ### Autenticación (`/auth`)
 
-**Objetivo:** Validar el login y la obtención de tokens de acceso.
-
 - **Prueba happy path:** Login con credenciales válidas  
-  _Test:_ [`test_login_valid.py`](tests/auth/test_login_valid.py)  
+  _Objetivo:_ Verificar acceso con credenciales correctas  
+  _Test:_ `test_login_exitoso`  
   _Salida esperada:_ token generado, código 200  
-  _Requisito:_ TA-01 Login exitoso
+  _Requisito:_ TA-01 - Valida el acceso exitoso y la generación de token  
+  _Trazabilidad:_ Garantiza el acceso seguro y la generación de tokens
 
 - **Prueba negativa:** Login con credenciales incorrectas  
-  _Test:_ [`test_login_invalid.py`](tests/auth/test_login_invalid.py)  
+  _Objetivo:_ Validar rechazo de acceso  
+  _Test:_ `test_login_fallido`  
   _Salida esperada:_ error, código 401  
-  _Requisito:_ TA-02 Validación de credenciales
+  _Requisito:_ TA-02 - Valida el rechazo de credenciales inválidas  
+  _Trazabilidad:_ Protección ante intentos no autorizados
 
-**Trazabilidad:** Estas pruebas validan el acceso seguro y la generación de tokens.
+- **Prueba happy path:** Registro exitoso  
+  _Objetivo:_ Crear usuario y validar datos  
+  _Test:_ `test_signup_exitoso`  
+  _Salida esperada:_ usuario creado, código 201  
+  _Requisito:_ TA-03 - Valida el registro único de usuario  
+  _Trazabilidad:_ Creación segura de usuarios
+
+- **Prueba negativa:** Registro con email existente  
+  _Objetivo:_ Rechazar duplicados  
+  _Test:_ `test_signup_email_existente`  
+  _Salida esperada:_ error, código 400/409/422  
+  _Requisito:_ TA-04 - Valida que no se permita el registro con email duplicado  
+  _Trazabilidad:_ Evita duplicidad
+
+- **Prueba negativa:** Registro con rol inválido  
+  _Objetivo:_ Rechazar roles no permitidos  
+  _Test:_ `test_signup_rol_invalido`  
+  _Salida esperada:_ error, código 400/422/500  
+  _Requisito:_ TA-05 - Valida que solo se acepten roles permitidos  
+  _Trazabilidad:_ Control de roles
 
 ---
 
 ### Usuarios (`/users`)
 
-**Objetivo:** Comprobar registro, login y consulta de usuarios.
-
-- **Prueba happy path:** Registro con datos válidos  
-  _Test:_ [`test_register_user_valido.py`](tests/users/test_register_user_valido.py)  
+- **Prueba happy path:** Crear usuario válido  
+  _Objetivo:_ Registro único de usuario  
+  _Test:_ `test_create_user_valid`  
   _Salida esperada:_ usuario creado, código 201  
-  _Requisito:_ TA-03 Registro único de usuario
+  _Requisito:_ TA-03 - Valida la creación de usuarios con datos válidos  
+  _Trazabilidad:_ Creación segura
 
-- **Prueba negativa:** Registro con email ya usado  
-  _Test:_ [`test_register_email_repetido.py`](tests/users/test_register_email_repetido.py)  
-  _Salida esperada:_ error, código 409  
-  _Requisito:_ TA-04 Validación de email único
+- **Prueba negativa:** Crear usuario sin email  
+  _Objetivo:_ Validación de email único  
+  _Test:_ `test_create_user_invalid`  
+  _Salida esperada:_ error, código 400/422  
+  _Requisito:_ TA-04 - Valida que el email sea obligatorio y único  
+  _Trazabilidad:_ Integridad de datos
 
-**Trazabilidad:** Validan el registro único y autenticación segura.
+- **Prueba happy path:** Listar usuarios con paginación  
+  _Objetivo:_ Listado correcto  
+  _Test:_ `test_list_users`  
+  _Salida esperada:_ lista, código 200  
+  _Requisito:_ TA-05 - Valida la consulta paginada de usuarios  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba happy path:** Obtener detalles del usuario autenticado  
+  _Objetivo:_ Datos del usuario  
+  _Test:_ `test_get_me`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-06 - Valida la obtención de datos del usuario autenticado  
+  _Trazabilidad:_ Consulta de perfil
+
+- **Prueba happy path:** Actualizar usuario válido  
+  _Objetivo:_ Actualización de datos  
+  _Test:_ `test_update_user_valid`  
+  _Salida esperada:_ datos actualizados, código 200  
+  _Requisito:_ TA-07 - Valida la actualización de datos de usuario existente  
+  _Trazabilidad:_ Actualización segura
+
+- **Prueba negativa:** Actualizar usuario inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_update_user_invalid`  
+  _Salida esperada:_ error, código 404/400/422  
+  _Requisito:_ TA-08 - Valida el manejo de errores al actualizar usuario no existente  
+  _Trazabilidad:_ Control de errores
+
+- **Prueba happy path:** Eliminar usuario existente  
+  _Objetivo:_ Baja de usuario  
+  _Test:_ `test_delete_user_valid`  
+  _Salida esperada:_ eliminado, código 204  
+  _Requisito:_ TA-09 - Valida la eliminación de usuario existente  
+  _Trazabilidad:_ Baja segura
+
+- **Prueba negativa:** Eliminar usuario inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_delete_user_invalid`  
+  _Salida esperada:_ error, código 204/404/400/422  
+  _Requisito:_ TA-10 - Valida el manejo de errores al eliminar usuario no existente  
+  _Trazabilidad:_ Control de errores
 
 ---
 
 ### Aeropuertos (`/airports`)
 
-**Objetivo:** Validar consulta, alta, edición y eliminación de aeropuertos.
-
 - **Prueba happy path:** Consultar todos los aeropuertos  
-  _Test:_ [`test_get_all_airports.py`](tests/airports/test_get_all_airports.py)  
-  _Salida esperada:_ lista de aeropuertos, código 200  
-  _Requisito:_ TA-05 Consulta de aeropuertos
+  _Objetivo:_ Listado completo  
+  _Test:_ `test_get_all_airports`  
+  _Salida esperada:_ lista, código 200  
+  _Requisito:_ TA-11 - Valida la consulta de todos los aeropuertos  
+  _Trazabilidad:_ Consulta correcta
 
 - **Prueba happy path:** Crear aeropuerto nuevo  
-  _Test:_ [`test_create_airport.py`](tests/airports/test_create_airport.py)  
-  _Salida esperada:_ aeropuerto creado, código 201  
-  _Requisito:_ TA-06 Alta de aeropuerto
+  _Objetivo:_ Alta de aeropuerto  
+  _Test:_ `test_create_airport`  
+  _Salida esperada:_ creado, código 201  
+  _Requisito:_ TA-12 - Valida la creación de aeropuertos con datos válidos  
+  _Trazabilidad:_ Creación segura
 
-- **Prueba happy path:** Modificar aeropuerto existente  
-  _Test:_ [`test_update_airport.py`](tests/airports/test_update_airport.py)  
-  _Salida esperada:_ datos actualizados, código 200  
-  _Requisito:_ TA-07 Edición de aeropuerto
+- **Prueba happy path:** Modificar aeropuerto  
+  _Objetivo:_ Edición de datos  
+  _Test:_ `test_update_airport`  
+  _Salida esperada:_ actualizado, código 200  
+  _Requisito:_ TA-13 - Valida la actualización de datos de aeropuerto  
+  _Trazabilidad:_ Actualización
 
 - **Prueba happy path:** Borrar aeropuerto  
-  _Test:_ [`test_delete_airport.py`](tests/airports/test_delete_airport.py)  
-  _Salida esperada:_ aeropuerto eliminado, código 204  
-  _Requisito:_ TA-08 Eliminación de aeropuerto
+  _Objetivo:_ Eliminación  
+  _Test:_ `test_delete_airport`  
+  _Salida esperada:_ eliminado, código 204  
+  _Requisito:_ TA-14 - Valida la eliminación de aeropuerto existente  
+  _Trazabilidad:_ Baja segura
 
 - **Prueba negativa:** Consultar aeropuerto inexistente  
-  _Test:_ [`test_get_airport_not_found.py`](tests/airports/test_get_airport_not_found.py)  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_get_airport_not_found`  
   _Salida esperada:_ error, código 404  
-  _Requisito:_ TA-09 Manejo de errores en consulta
+  _Requisito:_ TA-15 - Valida el manejo de errores al consultar aeropuerto no existente  
+  _Trazabilidad:_ Control de errores
 
 - **Prueba negativa:** Crear aeropuerto con datos incompletos  
-  _Test:_ [`test_create_airport_incomplete.py`](tests/airports/test_create_airport_incomplete.py)  
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_create_airport_incomplete`  
   _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-10 Validación de datos obligatorios
-
-**Trazabilidad:** Cada prueba está vinculada al requisito funcional de gestión de aeropuertos.
+  _Requisito:_ TA-16 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
 
 ---
 
 ### Vuelos (`/flights`)
 
-**Objetivo:** Validar consulta, alta, edición y cancelación de vuelos.
-
-- **Prueba happy path:** Consultar todos los vuelos  
-  _Test:_ [`test_get_all_flights.py`](tests/flights/test_get_all_flights.py)  
-  _Salida esperada:_ lista de vuelos, código 200  
-  _Requisito:_ TA-11 Consulta de vuelos
-
 - **Prueba happy path:** Crear vuelo nuevo  
-  _Test:_ [`test_create_flight.py`](tests/flights/test_create_flight.py)  
-  _Salida esperada:_ vuelo creado, código 201  
-  _Requisito:_ TA-12 Alta de vuelo
-
-- **Prueba happy path:** Modificar vuelo existente  
-  _Test:_ [`test_update_flight.py`](tests/flights/test_update_flight.py)  
-  _Salida esperada:_ datos actualizados, código 200  
-  _Requisito:_ TA-13 Edición de vuelo
-
-- **Prueba happy path:** Cancelar vuelo  
-  _Test:_ [`test_cancel_flight.py`](tests/flights/test_cancel_flight.py)  
-  _Salida esperada:_ vuelo cancelado, código 204  
-  _Requisito:_ TA-14 Cancelación de vuelo
-
-- **Prueba negativa:** Consultar vuelo inexistente  
-  _Test:_ [`test_get_flight_not_found.py`](tests/flights/test_get_flight_not_found.py)  
-  _Salida esperada:_ error, código 404  
-  _Requisito:_ TA-15 Manejo de errores en consulta
+  _Objetivo:_ Alta de vuelo  
+  _Test:_ `test_create_flight_success`  
+  _Salida esperada:_ creado, código 201  
+  _Requisito:_ TA-17 - Valida la creación de vuelos con datos válidos  
+  _Trazabilidad:_ Creación segura
 
 - **Prueba negativa:** Crear vuelo con datos incompletos  
-  _Test:_ [`test_create_flight_incomplete.py`](tests/flights/test_create_flight_incomplete.py)  
-  _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-16 Validación de datos obligatorios
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_create_flight_invalid`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-18 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
 
-**Trazabilidad:** Cada prueba está vinculada al requisito funcional de gestión de vuelos.
+- **Prueba happy path:** Consultar vuelo por id  
+  _Objetivo:_ Consulta de vuelo  
+  _Test:_ `test_get_flight_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-19 - Valida la consulta de vuelo por id  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba negativa:** Consultar vuelo inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_get_flight_not_found`  
+  _Salida esperada:_ error, código 404  
+  _Requisito:_ TA-20 - Valida el manejo de errores al consultar vuelo no existente  
+  _Trazabilidad:_ Control de errores
+
+- **Prueba negativa:** Buscar vuelos con parámetros inválidos  
+  _Objetivo:_ Validación de parámetros  
+  _Test:_ `test_search_flights_invalid_params`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-21 - Valida la restricción de parámetros de búsqueda  
+  _Trazabilidad:_ Validación de datos
+
+- **Prueba de rendimiento:** Tiempo de respuesta  
+  _Objetivo:_ Validar tiempo de respuesta  
+  _Test:_ `test_flight_response_time`  
+  _Salida esperada:_ <2 segundos, código 200  
+  _Requisito:_ TA-22 - Valida el rendimiento del endpoint  
+  _Trazabilidad:_ Performance
 
 ---
 
 ### Reservas (`/bookings`)
 
-**Objetivo:** Validar alta, consulta, edición y cancelación de reservas.
-
 - **Prueba happy path:** Crear reserva  
-  _Test:_ [`test_create_booking.py`](tests/bookings/test_create_booking.py)  
-  _Salida esperada:_ reserva creada, código 201  
-  _Requisito:_ TA-17 Alta de reserva
-
-- **Prueba happy path:** Consultar reservas  
-  _Test:_ [`test_get_all_bookings.py`](tests/bookings/test_get_all_bookings.py)  
-  _Salida esperada:_ lista de reservas, código 200  
-  _Requisito:_ TA-18 Consulta de reservas
-
-- **Prueba happy path:** Modificar reserva  
-  _Test:_ [`test_update_booking.py`](tests/bookings/test_update_booking.py)  
-  _Salida esperada:_ datos actualizados, código 200  
-  _Requisito:_ TA-19 Edición de reserva
-
-- **Prueba happy path:** Cancelar reserva  
-  _Test:_ [`test_cancel_booking.py`](tests/bookings/test_cancel_booking.py)  
-  _Salida esperada:_ reserva cancelada, código 204  
-  _Requisito:_ TA-20 Cancelación de reserva
-
-- **Prueba negativa:** Consultar reserva inexistente  
-  _Test:_ [`test_get_booking_not_found.py`](tests/bookings/test_get_booking_not_found.py)  
-  _Salida esperada:_ error, código 404  
-  _Requisito:_ TA-21 Manejo de errores en consulta
+  _Objetivo:_ Alta de reserva  
+  _Test:_ `test_create_booking_success`  
+  _Salida esperada:_ creada, código 200  
+  _Requisito:_ TA-23 - Valida la creación de reservas con datos válidos  
+  _Trazabilidad:_ Creación segura
 
 - **Prueba negativa:** Crear reserva con datos incompletos  
-  _Test:_ [`test_create_booking_incomplete.py`](tests/bookings/test_create_booking_incomplete.py)  
-  _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-22 Validación de datos obligatorios
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_create_booking_invalid`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-24 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
 
-**Trazabilidad:** Cada prueba está vinculada al requisito funcional de gestión de reservas.
+- **Prueba happy path:** Consultar todas las reservas  
+  _Objetivo:_ Listado de reservas  
+  _Test:_ `test_get_all_bookings_success`  
+  _Salida esperada:_ lista, código 200  
+  _Requisito:_ TA-25 - Valida la consulta de todas las reservas  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba happy path:** Consultar reserva por id  
+  _Objetivo:_ Consulta de reserva  
+  _Test:_ `test_get_booking_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-26 - Valida la consulta de reserva por id  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba negativa:** Consultar reserva inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_get_booking_not_found`  
+  _Salida esperada:_ error, código 404  
+  _Requisito:_ TA-27 - Valida el manejo de errores al consultar reserva no existente  
+  _Trazabilidad:_ Control de errores
+
+- **Prueba happy path:** Modificar reserva  
+  _Objetivo:_ Edición de datos  
+  _Test:_ `test_update_booking_success`  
+  _Salida esperada:_ actualizado, código 200  
+  _Requisito:_ TA-28 - Valida la actualización de datos de reserva  
+  _Trazabilidad:_ Actualización
+
+- **Prueba negativa:** Modificar reserva inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_update_booking_invalid`  
+  _Salida esperada:_ error, código 404  
+  _Requisito:_ TA-29 - Valida el manejo de errores al modificar reserva no existente  
+  _Trazabilidad:_ Control de errores
+
+- **Prueba negativa:** Eliminar reserva inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_delete_booking_invalid`  
+  _Salida esperada:_ error, código 404  
+  _Requisito:_ TA-30 - Valida el manejo de errores al eliminar reserva no existente  
+  _Trazabilidad:_ Control de errores
+
+---
+
+### Aeronaves (`/aircrafts`)
+
+- **Prueba happy path:** Consultar aeronave por id  
+  _Objetivo:_ Validar consulta por id  
+  _Test:_ `test_create_aircraft_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-31 - Valida la consulta de aeronave por id  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba negativa:** Crear aeronave con datos incompletos  
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_create_aircraft_invalid`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-32 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
+
+- **Prueba happy path:** Consultar aeronave por id  
+  _Objetivo:_ Validar consulta por id  
+  _Test:_ `test_get_aircraft_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-33 - Valida la consulta de aeronave por id  
+  _Trazabilidad:_ Consulta correcta
+
+- **Prueba negativa:** Consultar aeronave inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_get_aircraft_invalid`  
+  _Salida esperada:_ error, código 404  
+  _Requisito:_ TA-34 - Valida el manejo de errores al consultar aeronave no existente  
+  _Trazabilidad:_ Control de errores
+
+- **Prueba happy path:** Modificar aeronave  
+  _Objetivo:_ Edición de datos  
+  _Test:_ `test_update_aircraft_success`  
+  _Salida esperada:_ actualizado, código 200  
+  _Requisito:_ TA-35 - Valida la actualización de datos de aeronave  
+  _Trazabilidad:_ Actualización
+
+- **Prueba negativa:** Modificar aeronave con datos incompletos  
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_update_aircraft_invalid`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-36 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
+
+- **Prueba happy path:** Eliminar aeronave  
+  _Objetivo:_ Baja de aeronave  
+  _Test:_ `test_delete_aircraft_success`  
+  _Salida esperada:_ eliminado, código 204  
+  _Requisito:_ TA-37 - Valida la eliminación de aeronave existente  
+  _Trazabilidad:_ Baja segura
+
+- **Prueba negativa:** Eliminar aeronave inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_delete_aircraft_invalid`  
+  _Salida esperada:_ error, código 422  
+  _Requisito:_ TA-38 - Valida el manejo de errores al eliminar aeronave no existente  
+  _Trazabilidad:_ Control de errores
 
 ---
 
 ### Pagos (`/payments`)
 
-**Objetivo:** Validar el procesamiento y la validación de pagos.
+- **Prueba happy path:** Consultar pago por id  
+  _Objetivo:_ Validar consulta por id  
+  _Test:_ `test_create_payment_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-39 - Valida la consulta de pago por id  
+  _Trazabilidad:_ Consulta correcta
 
-- **Prueba happy path:** Pago con tarjeta válida  
-  _Test:_ [`test_payment_valid_card.py`](tests/payments/test_payment_valid_card.py)  
-  _Salida esperada:_ pago aceptado, código 201  
-  _Requisito:_ TA-23 Procesamiento de pago exitoso
-
-- **Prueba negativa:** Pago con tarjeta vencida  
-  _Test:_ [`test_payment_expired_card.py`](tests/payments/test_payment_expired_card.py)  
-  _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-24 Validación de fecha de vencimiento
-
-- **Prueba negativa:** Pago con datos incompletos  
-  _Test:_ [`test_payment_incomplete_data.py`](tests/payments/test_payment_incomplete_data.py)  
-  _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-25 Validación de datos obligatorios
-
-- **Prueba negativa:** Pago con monto inválido  
-  _Test:_ [`test_payment_invalid_amount.py`](tests/payments/test_payment_invalid_amount.py)  
+- **Prueba negativa:** Crear pago con datos inválidos  
+  _Objetivo:_ Validación de datos  
+  _Test:_ `test_create_payment_invalid`  
   _Salida esperada:_ error, código 422  
-  _Requisito:_ TA-26 Validación de monto
+  _Requisito:_ TA-40 - Valida que los datos obligatorios sean requeridos  
+  _Trazabilidad:_ Integridad de datos
 
-**Trazabilidad:** Cada prueba está vinculada al requisito funcional de procesamiento y validación de pagos.
+- **Prueba happy path:** Consultar pago por id  
+  _Objetivo:_ Validar consulta por id  
+  _Test:_ `test_get_payment_success`  
+  _Salida esperada:_ datos, código 200  
+  _Requisito:_ TA-41 - Valida la consulta de pago por id  
+  _Trazabilidad:_ Consulta correcta
 
----
-
-### Aeronaves (`/aircraft`)
-
-**Objetivo:** Validar consulta, alta, edición y baja de aeronaves.
-
-- **Prueba happy path:** Consultar todas las aeronaves  
-  _Test:_ [`test_get_all_aircraft.py`](tests/aircraft/test_get_all_aircraft.py)  
-  _Salida esperada:_ lista de aeronaves, código 200  
-  _Requisito:_ TA-27 Consulta de aeronaves
-
-- **Prueba happy path:** Crear aeronave nueva  
-  _Test:_ [`test_create_aircraft.py`](tests/aircraft/test_create_aircraft.py)  
-  _Salida esperada:_ aeronave creada, código 201  
-  _Requisito:_ TA-28 Alta de aeronave
-
-- **Prueba happy path:** Modificar aeronave existente  
-  _Test:_ [`test_update_aircraft.py`](tests/aircraft/test_update_aircraft.py)  
-  _Salida esperada:_ datos actualizados, código 200  
-  _Requisito:_ TA-29 Edición de aeronave
-
-- **Prueba happy path:** Borrar aeronave  
-  _Test:_ [`test_delete_aircraft.py`](tests/aircraft/test_delete_aircraft.py)  
-  _Salida esperada:_ aeronave eliminada, código 204  
-  _Requisito:_ TA-30 Eliminación de aeronave
-
-- **Prueba negativa:** Consultar aeronave inexistente  
-  _Test:_ [`test_get_aircraft_not_found.py`](tests/aircraft/test_get_aircraft_not_found.py)  
+- **Prueba negativa:** Consultar pago inexistente  
+  _Objetivo:_ Manejo de errores  
+  _Test:_ `test_get_payment_not_found`  
   _Salida esperada:_ error, código 404  
-  _Requisito:_ TA-31 Manejo de errores en consulta
-
-- **Prueba negativa:** Crear aeronave con datos incompletos  
-  _Test:_ [`test_create_aircraft_incomplete.py`](tests/aircraft/test_create_aircraft_incomplete.py)  
-  _Salida esperada:_ error, código 400  
-  _Requisito:_ TA-32 Validación de datos obligatorios
-
-**Trazabilidad:** Cada prueba está vinculada al requisito funcional de gestión de aeronaves.
+  _Requisito:_ TA-42 - Valida el manejo de errores al consultar pago no existente  
+  _Trazabilidad:_ Control de errores
 
 ---
+
 
 ## ¿Qué faltaría para mejorar?
 
 - Revisar que todos los casos límite estén cubiertos (campos vacíos, datos máximos).
 - Añadir más pruebas negativas (errores de autenticación, formatos incorrectos).
 - Documentar cada test con su requisito asociado.
+- Que funcionen todos los tests a la ves, hay varios errores en payments que no he logrado resolver.
 
 ---
 
@@ -259,7 +396,7 @@ Para mejorar la confiabilidad de la suite, uso el decorador `@pytest.mark.retry`
 
 Esto reintentará el test hasta 2 veces, con 5 segundos de espera entre intentos.
 
-@pytest.mark.retry(retries=2, delay=5)
+@pytest.mark.retry(retries=3, delay=5)
 def test_inestable():
     # código del test
 

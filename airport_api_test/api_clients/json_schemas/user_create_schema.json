@@ -1,22 +1,11 @@
 {
   "type": "object",
   "properties": {
-    "email": {
-      "type": "string",
-      "format": "email"
-    },
-    "password": {
-      "type": "string",
-      "minLength": 6
-    },
-    "full_name": {
-      "type": "string"
-    }
+    "id": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "full_name": { "type": "string" },
+    "role": { "type": "string" }
   },
-  "required": [
-    "email",
-    "password",
-    "full_name"
-  ],
+  "required": ["id", "email", "full_name", "role"],
   "additionalProperties": false
 }
