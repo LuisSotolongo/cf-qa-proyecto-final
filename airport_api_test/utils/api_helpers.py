@@ -7,7 +7,6 @@ load_dotenv()
 BASE_URL = os.getenv("BASE_URL")
 
 RENTRIES = 3
-API_MAIN_URL = "https://cf-automation-airline-api.onrender.com/"
 EXPECTED_MSG = '"msg":"Airline API up & running"'
 
 def api_request(method, url, **kwargs):
