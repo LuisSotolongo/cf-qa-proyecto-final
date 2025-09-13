@@ -36,22 +36,6 @@ pip3 freeze > requirements.txt
 
 ## Pruebas para la API
 
-### Primera parte: Plan de pruebas y diseño de casos
-
-- Casos incompletos o sin técnica de diseño
-- Cobertura parcial; faltan casos límites o pruebas negativas
-- Cobertura lógica y priorizada; documentación clara
-- Cobertura crítica ≥ 90 %; criterios de entrada/salida y trazabilidad a requisitos
-
-### Segunda parte: Cobertura funcional – API
-
-- < 40 % de endpoints clave cubiertos
-- ≥ 40 % de endpoints con códigos 2xx
-- ≥ 70 % de endpoints con validaciones 2xx/4xx; uso de fixtures
-- ≥ 90 % de endpoints; incluye esquemas JSON, auth, tiempo de respuesta
-
----
-
 ## Endpoints cubiertos en las pruebas
 
 **Auth**
@@ -91,10 +75,6 @@ pip3 freeze > requirements.txt
 - PATCH `/bookings/{booking_id}` - Update Booking
 - DELETE `/bookings/{booking_id}` - Cancel Booking
 
-**Payments**
-
-- POST `/payments` - Pay
-- GET `/payments/{payment_id}` - Get Payment
 
 **Aircrafts**
 
@@ -104,12 +84,6 @@ pip3 freeze > requirements.txt
 - PUT `/aircrafts/{aircraft_id}` - Update Aircraft
 - DELETE `/aircrafts/{aircraft_id}` - Delete Aircraft
 
-**Glitch Examples**
-
-- GET `/glitch-examples/success-but-error` - Success But Error
-- GET `/glitch-examples/client-error` - Client Error
-- GET `/glitch-examples/server-error` - Server Error
-- GET `/glitch-examples/timeout` - Timeout Error
 
 ---
 
