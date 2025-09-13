@@ -3,3 +3,5 @@ venv/
 #pero si no lo subo, sera más dificil para comprobar su funcionamiento
 # .env
 .idea
+__pycache__/
+*.pyc
