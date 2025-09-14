@@ -8,7 +8,6 @@ from selenium.common.exceptions import TimeoutException
 
 @given('el usuario ingresa a la página de inicio "HomePage"')
 def step_impl(context):
-    print("context.driver:", getattr(context, "driver", None))
     context.base_page = BasePage(context.driver)
     context.cart_page = CartPage(context.driver)
     context.cart_page.load()

@@ -14,7 +14,6 @@ SHOPHUB_BASE_URL = os.getenv("SHOPHUB_BASE_URL")
 
 @given('el usuario ingresa a la página de login')
 def step_impl(context):
-    print("context.driver:", getattr(context, "driver", None))
     context.base_page = BasePage(context.driver)
     context.login_page = LoginPage(context.driver)
     context.success_page = SuccessPage(context.driver)
