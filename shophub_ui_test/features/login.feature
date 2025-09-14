@@ -7,7 +7,7 @@ Feature: Autenticacion de usuario - Login
   Scenario: Login exitoso
     Given el usuario ingresa a la página de login
     When el usuario introduce credenciales válidas
-    Then debería ver la página el texto de "Logged In"
+    Then debería ver la página "login/success" el texto de "Logged In"
     When el usuario hace clic en el botón "Go to Home"
 
 

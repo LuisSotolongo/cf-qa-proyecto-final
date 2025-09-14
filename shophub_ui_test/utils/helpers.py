@@ -13,7 +13,7 @@ def generate_registration_info():
         "last_name": fake.last_name(),
         "email": generate_unique_email(),
         "password": fake.password(length=10),
-        "zip_code": fake.zipcode()
+        "zip_code": fake.postcode()
     }
 
 def generate_login_info():

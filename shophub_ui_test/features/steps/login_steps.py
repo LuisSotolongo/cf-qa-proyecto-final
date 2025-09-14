@@ -3,7 +3,7 @@ import re
 from behave import given, when, then
 from dotenv import load_dotenv
 from shophub_ui_test.pages.login_page import LoginPage
-from shophub_ui_test.pages.login_success_page import LoginSuccessPage
+from shophub_ui_test.pages.success_page import SuccessPage
 from shophub_ui_test.pages.base_page import BasePage
 from shophub_ui_test.utils.helpers import generate_login_info
 from selenium.common.exceptions import TimeoutException
@@ -17,7 +17,7 @@ def step_impl(context):
     print("context.driver:", getattr(context, "driver", None))
     context.base_page = BasePage(context.driver)
     context.login_page = LoginPage(context.driver)
-    context.login_success_page = LoginSuccessPage(context.driver)
+    context.success_page = SuccessPage(context.driver)
     context.login_page.load()
     # context.base_page.assert_current_url_is_correct(context.login_page.URL)
 
@@ -26,13 +26,13 @@ def step_impl(context):
     login_data = generate_login_info()
     context.login_page.login(login_data["email"], login_data["password"])
 
-@then('debería ver la página el texto de "Logged In"')
+@then('debería ver la página "login/success" el texto de "Logged In"')
 def step_impl(context):
-    context.login_success_page.login_success_message_h1("Logged In")
+    context.success_page.success_message_h1("Logged In")
 
 @when('el usuario hace clic en el botón "Go to Home"')
 def step_impl(context):
-    context.login_success_page.go_to_home_page()
+    context.success_page.go_to_home_page()
 
 
 # @when('el usuario introduce un email sin arroba y una contraseña válida')
