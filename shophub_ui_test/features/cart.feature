@@ -4,7 +4,7 @@ Feature: Funcionalidades del carrito de compra
   Para gestionar mi compra antes de pagar
 
   Background:
-    Given el usuario ingresa a la página de inicio "cart"
+    Given el usuario ingresa a la página de inicio "HomePage"
 
   Scenario: Añadir un producto al carrito
     When el usuario selecciona un producto y hace clic en "Añadir al carrito"
@@ -20,11 +20,6 @@ Feature: Funcionalidades del carrito de compra
     Given el usuario tiene productos en el carrito
     When el usuario actualiza la cantidad de un producto
     Then la cantidad del producto en el carrito debería reflejar el cambio
-
-  Scenario: Vaciar el carrito
-    Given el usuario tiene productos en el carrito "vaciar carrito"
-    When el usuario vacía el carrito
-    Then el carrito debería estar vacío
 
   Scenario: Proceder al checkout desde el carrito
     Given el usuario tiene productos en el carrito

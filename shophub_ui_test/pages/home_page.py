@@ -12,7 +12,7 @@ SHOPHUB_BASE_URL = os.getenv("SHOPHUB_BASE_URL")
 
 class HomePage(BasePage):
 
-    URL = SHOPHUB_BASE_URL or "https://shophub-demo.netlify.app/"
+    URL = SHOPHUB_BASE_URL
 
     def __init__(self, driver):
         self.driver = driver

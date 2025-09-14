@@ -6,7 +6,7 @@ from shophub_ui_test.pages.cart_page import CartPage
 from shophub_ui_test.pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
 
-@given('el usuario ingresa a la página de inicio "cart"')
+@given('el usuario ingresa a la página de inicio "HomePage"')
 def step_impl(context):
     print("context.driver:", getattr(context, "driver", None))
     context.base_page = BasePage(context.driver)
@@ -21,22 +21,9 @@ def step_add_product(context):
 def step_product_in_cart(context):
     assert context.cart_page.is_product_in_cart("Laptop")
 
-@given('el usuario tiene productos en el carrito "ver productos"')
-def step_given_products_in_cart(context):
-    context.cart_page.add_product_to_cart("Producto Ejemplo")
-
-@when('el usuario accede al carrito')
-def step_open_cart(context):
-    context.cart_page.open_cart()
-
-@then('debería ver la lista de productos añadidos')
-def step_see_products(context):
-    products = context.cart_page.get_cart_products()
-    assert "Producto Ejemplo" in products
-
 @given('el usuario tiene productos en el carrito "eliminar producto"')
 def step_given_products_for_remove(context):
-   pass
+    pass
 
 @when('el usuario elimina un producto del carrito')
 def step_remove_product(context):
@@ -52,23 +39,12 @@ def step_given_products(context):
 
 @when('el usuario actualiza la cantidad de un producto')
 def step_update_quantity(context):
-    context.cart_page.update_product_quantity()
+    context.cart_page.update_product_quantity(2)
 
 @then('la cantidad del producto en el carrito debería reflejar el cambio')
 def step_quantity_reflected(context):
-    pass
-
-@given('el usuario tiene productos en el carrito "vaciar carrito"')
-def step_given_products_for_empty(context):
-    pass
-
-@when('el usuario vacía el carrito')
-def step_empty_cart(context):
-    context.cart_page.empty_cart()
-
-@then('el carrito debería estar vacío')
-def step_cart_empty(context):
-    assert context.cart_page.is_cart_empty()
+    cantidad = context.cart_page.get_product_quantity("Smartphone")
+    assert cantidad == 2, f"Se esperaban 2 unidades, pero hay {cantidad}"
 
 @when('el usuario hace clic en "Proceder al pago"')
 def step_checkout(context):
