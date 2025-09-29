@@ -39,7 +39,7 @@ def generate_post_order():
         "email": generate_unique_email(),
         "phone": fake.phone_number(),
         "address": fake.address(),
-        "city": "Las Palmas De Gran Canaria",
-        "zip_code": "33355",
-        "country": "Spain",
+        "city": fake.city(),
+        "zip_code": fake.postcode(),
+        "country": fake.country(),
     }

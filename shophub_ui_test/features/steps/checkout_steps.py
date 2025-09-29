@@ -8,6 +8,7 @@ from shophub_ui_test.pages.success_page import SuccessPage
 from shophub_ui_test.utils.helpers import generate_post_order
 from shophub_ui_test.pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoAlertPresentException
 
 load_dotenv()
 SHOPHUB_BASE_URL = os.getenv("SHOPHUB_BASE_URL")
@@ -46,21 +47,28 @@ def step_impl(context):
         fill_form_post_order["country"]
     )
 
+
 @then('la información de envío debería guardarse correctamente')
 def step_impl(context):
-    pass
+    assert context.checkout_page.is_shipping_info_displayed(), "La información de envío no se guardó correctamente"
 
-@then('debería ver un resumen de los productos y el total a pagar')
+
+@then('debería ver la página de confirmación de compra envio')
+def step_should_see_confirmation_page(context):
+    assert context.driver.current_url.endswith("/confirmation"), "No está en la página de confirmación"
+    texto = context.checkout_page.get_confirmation_header_text()
+    if "No Order Found" in texto:
+        screenshot_path = "shophub_ui_test/reports/failed_screenshots/confirmation_page_bug.png"
+        context.driver.save_screenshot(screenshot_path)
+        print(f"BUG: Mensaje incorrecto en la página de confirmación. Captura guardada en: {screenshot_path}")
+        raise AssertionError("BUG: Se muestra 'No Order Found' en vez del mensaje de confirmación")
+
+
+@when('el usuario intenta proceder al checkout sin completar los campos obligatorios')
 def step_impl(context):
-    pass
+    context.checkout_page.open_checkout_page()
+    context.checkout_page.click_place_order_button()
 
-
-# @then('debería ver la página de confirmación de compra')
-# def step_should_see_confirmation_page(context):
-#     # Verificar que se muestra la página de confirmación
-#     pass
-#
-# @then('debería ver un mensaje indicando que el carrito está vacío')
-# def step_should_see_empty_cart_message(context):
-#     # Verificar que se muestra el mensaje de carrito vacío
-#     pass
+@then('debería ver un mensaje de alerta indicando "Please fill in all required fields"')
+def step_impl(context):
+    context.checkout_page.handle_alert("Please fill in all required fields")

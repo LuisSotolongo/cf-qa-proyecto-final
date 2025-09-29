@@ -124,10 +124,8 @@ shophub_ui_test/
 ├── utils/
 │   ├── driver_factory.py
 │   └── helpers.py
-├── reports/
-│   └── *.html
-├── tests/
-│   └── test_*.py
+├── failed_screenshoots/
+│   └── *.png
 └── requirements.txt
 
 ```                 

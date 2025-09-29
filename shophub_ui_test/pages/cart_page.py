@@ -70,7 +70,7 @@ class CartPage(BasePage):
 
     def get_product_quantity(self, product_name):
         cantidad_xpath = f"//h3[text()='{product_name}']/ancestor::div[contains(@class,'flex')]//span[contains(@class,'text-center')]"
-        cantidad_element = self.driver.find_element_by_xpath(cantidad_xpath)
+        cantidad_element = self.driver.find_element_by_xpath(By.XPATH, cantidad_xpath)
         return int(cantidad_element.text)
 
 

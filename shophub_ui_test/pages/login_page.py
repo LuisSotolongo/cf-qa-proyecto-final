@@ -33,4 +33,7 @@ class LoginPage(BasePage):
         self.driver.find_element(*self.password_input).send_keys(password)
         self.driver.find_element(*self.login_button).click()
 
+    def assert_login_page_not_left(self):
+        assert self.driver.current_url.endswith("/login"), "No se quedó en la página de login"
+
 

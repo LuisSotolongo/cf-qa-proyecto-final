@@ -1,7 +1,7 @@
 import os
 from shophub_ui_test.utils.driver_manager import get_driver
 import time
-SCREENSHOT_DIRECTORY = "failed_screenshots"
+SCREENSHOT_DIRECTORY = "shophub_ui_test/reports/failed_screenshots"
 
 
 def before_all(context):

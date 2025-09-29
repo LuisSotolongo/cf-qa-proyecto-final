@@ -18,7 +18,6 @@ def step_impl(context):
     context.login_page = LoginPage(context.driver)
     context.success_page = SuccessPage(context.driver)
     context.login_page.load()
-    # context.base_page.assert_current_url_is_correct(context.login_page.URL)
 
 @when('el usuario introduce credenciales válidas')
 def step_impl(context):
@@ -34,29 +33,24 @@ def step_impl(context):
     context.success_page.go_to_home_page()
 
 
-# @when('el usuario introduce un email sin arroba y una contraseña válida')
-# def step_impl(context):
-#     login_data = generate_login_info()
-#     email_without_at = re.sub('@', '', login_data["email"])
-#     context.login_page.login(email_without_at, login_data["password"])
-#
-# @when('el usuario deja el campo email vacío y introduce una contraseña válida')
-# def step_impl(context):
-#     login_data = generate_login_info()
-#     context.login_page.login("", login_data["password"])
-#
-# @when('el usuario introduce un email válido y deja la contraseña vacía')
-# def step_impl(context):
-#     login_data = generate_login_info()
-#     context.login_page.login(login_data["email"], "")
-#
-# @then('debería ver la página segura "/login/success"')
-# def step_impl(context):
-#     context.base_page.assert_current_url_is_correct(f"{context.login_page.URL}/success")
-#
-# @then('debería ver un mensaje de error')
-# def step_impl(context):
-#     try:
-#         context.login_page.assert_error_message_is_visible()
-#     except TimeoutException:
-#         raise AssertionError("El mensaje de error no apareció en la página.")
+@when('el usuario introduce un email sin arroba y una contraseña válida')
+def step_impl(context):
+    login_data = generate_login_info()
+    email_without_at = re.sub('@', '', login_data["email"])
+    context.login_page.login(email_without_at, login_data["password"])
+
+@when('el usuario deja el campo email vacío y introduce una contraseña válida')
+def step_impl(context):
+    login_data = generate_login_info()
+    context.login_page.login("", login_data["password"])
+
+@when('el usuario introduce un email válido y deja la contraseña vacía')
+def step_impl(context):
+    login_data = generate_login_info()
+    context.login_page.login(login_data["email"], "")
+
+
+@then('no me deberia permitir iniciar sesión, debo continuar en la página de login')
+def step_impl(context):
+    context.login_page.assert_login_page_not_left, "No se quedó en la página de login"
+

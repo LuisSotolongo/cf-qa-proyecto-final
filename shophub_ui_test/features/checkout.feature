@@ -11,11 +11,9 @@ Feature: Checkout del carrito
   Scenario: Validar información de envío en el checkout
     When el usuario procede al checkout e ingresa la información de envío
     Then la información de envío debería guardarse correctamente
+    Then debería ver la página de confirmación de compra envio
 
-  Scenario: Mostrar resumen de compra antes de confirmar
-    When el usuario procede al checkout
-    Then debería ver un resumen de los productos y el total a pagar
 
-#  Scenario: No permitir checkout con el carrito vacío
-#    When el usuario intenta proceder al checkout
-#    Then debería ver un mensaje indicando que el carrito está vacío
+  Scenario: Mostrar mensaje de alerta si faltan campos obligatorios en el checkout
+  When el usuario intenta proceder al checkout sin completar los campos obligatorios
+  Then debería ver un mensaje de alerta indicando "Please fill in all required fields"

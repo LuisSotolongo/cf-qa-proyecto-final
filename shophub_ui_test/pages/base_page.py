@@ -1,9 +1,10 @@
+from behave.tag_matcher import print_active_tags
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, UnexpectedAlertPresentException
 
 class BasePage:
 
@@ -14,12 +15,30 @@ class BasePage:
         self.driver.get(url)
 
     def click(self, locator: tuple[By, str]):
-        self.driver.find_element(*locator).click()
-
-    def type(self, locator: tuple[By, str], text: str):
+        print("CLICK", locator)
         element = self.driver.find_element(*locator)
-        element.clear()
-        element.send_keys(text)
+        print(f"Elemento encontrado: {element}")
+        element.click()
+
+    # python
+    def type(self, locator, text):
+        print(f"Intentando escribir en: {locator} con valor: {text}")
+        try:
+            element = self.driver.find_element(*locator)
+            print(f"Elemento encontrado: {element}")
+            element.clear()
+            element.send_keys(text)
+        except UnexpectedAlertPresentException:
+            try:
+                self.wait_for_alert(timeout=3)
+                alert = self.driver.switch_to.alert
+                print(f"Alert detectado: {alert.text}")
+                alert.accept()
+            except Exception as e:
+                print(f"No se pudo manejar el alert: {e}")
+        except Exception as e:
+            print(f"Error al encontrar o escribir en el elemento {locator}: {e}")
+            raise
 
     def text_of_element(self, locator: tuple[By, str]) -> str:
         return self.driver.find_element(*locator).text
@@ -49,3 +68,13 @@ class BasePage:
         except TimeoutException:
             current_url = self.driver.current_url
             raise AssertionError(f"URL actual '{current_url}' no coincide con la URL esperada '{url_esperada}'")
+
+    def wait_for_element(self, locator, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located(locator)
+            )
+
+    def wait_for_alert(self, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(
+                EC.alert_is_present()
+            )
