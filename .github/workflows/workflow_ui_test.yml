@@ -30,6 +30,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Ejecutar pruebas Behave y generar reporte
+        env:
+          CI: true
         run: |
           mkdir -p shophub_ui_test/reports/behave
           behave shophub_ui_test/features --format behave_html_formatter:HTMLFormatter --outfile shophub_ui_test/reports/behave/behave-report.html
