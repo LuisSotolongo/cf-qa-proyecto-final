@@ -1,5 +1,5 @@
 # cf-qa-proyecto-final
-Proyecto final del Bootcamp QA Testing Automatizado
+Proyecto final del Bootcamp QA Testing Automatizado - Codigo Facilito
 ===================================================================================
 ---
 
@@ -35,6 +35,10 @@ pip3 freeze > requirements.txt
 ---
 
 ## Pruebas para la API
+
+### URL de la API bajo prueba
+
+- https://cf-automation-airline-api.onrender.com
 
 ## Endpoints cubiertos en las pruebas
 
@@ -88,3 +92,47 @@ pip3 freeze > requirements.txt
 ---
 
 Las pruebas se realizan sobre estos endpoints utilizando las herramientas mencionadas.
+
+## Pruebas para la UI
+
+### URL de la aplicación bajo prueba
+
+- https://shophub-commerce.vercel.app/
+
+El proyecto utiliza el patrón Page Object Model (POM) para estructurar las pruebas de automatización de la interfaz de usuario (UI) con Selenium y Behave. Este patrón ayuda a mantener el código organizado y facilita el mantenimiento de las pruebas.
+
+#### Ejemplo de ejecución de Behave
+
+Ejecuta el siguiente comando en la terminal desde la raíz del proyecto:
+
+```bash
+behave shophub_ui_test/features
+
+### Navegadores soportados
+
+- Google Chrome
+
+
+### Estructura del proyecto
+
+shophub_ui_test/
+├── features/
+│   ├── steps/
+│   ├── pages/
+│   ├── environment.py
+│   └── *.feature
+├── utils/
+│   ├── driver_factory.py
+│   └── helpers.py
+├── failed_screenshoots/
+│   └── *.png
+└── requirements.txt
+
+```                 
+### Descripción de carpetas y archivos                                                            
+
+-features/: Contiene los archivos .feature (escenarios BDD), 
+           los pasos (steps/) y 
+           las páginas (pages/) siguiendo el patrón POM.
+-utils/: Funciones auxiliares y utilidades como la fábrica de drivers y helpers.
+-reports/: Reportes generados por las ejecuciones de pruebas.
