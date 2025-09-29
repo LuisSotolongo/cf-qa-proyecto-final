@@ -5,7 +5,8 @@ SCREENSHOT_DIRECTORY = "shophub_ui_test/reports/failed_screenshots"
 
 
 def before_all(context):
-    context.driver = get_driver()
+    is_ci = os.environ.get("CI", "false").lower() == "true"
+    context.driver = get_driver(headless=is_ci)
     if context.driver:
         print("WebDriver iniciado.")
     else:
