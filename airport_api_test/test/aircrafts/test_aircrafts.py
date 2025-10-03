@@ -18,7 +18,7 @@ def a_aircraft_data():
     }
 
 # TA-31 - Valida la consulta de aeronave por id
-@pytest.mark.retry(retries=3, delay=5)
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_create_aircraft_success(auth_headers, create_aircraft):
     resp = api_request("get", BASE_URL + AIRCRAFTS + f"/{create_aircraft}", headers=auth_headers)
     assert resp.status_code == 200
@@ -56,13 +56,14 @@ def test_update_aircraft_invalid(auth_headers, create_aircraft):
     assert resp.status_code == 422
 
 # TA-37 - Valida la eliminación de aeronave existente
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_delete_aircraft_success(auth_headers, create_aircraft):
     resp = api_request("delete", BASE_URL + AIRCRAFTS + f"/{create_aircraft}", headers=auth_headers)
     assert resp.status_code == 204
 
 # TA-38 - Valida el manejo de errores al eliminar aeronave no existente
-@pytest.mark.retry(retries=3, delay=5)
-@pytest.mark.skip(reason="API returns 204 error for GET /aircrafts/{id}")
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
+# @pytest.mark.skip(reason="API returns 204 error for GET /aircrafts/{id}")
 def test_delete_aircraft_invalid(auth_headers):
     resp = api_request("delete", BASE_URL + AIRCRAFTS + "/errornoexiste", headers=auth_headers)
     if resp.status_code == 204:
