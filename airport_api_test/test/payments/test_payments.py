@@ -18,7 +18,7 @@ def test_create_payment_success(auth_headers, create_payment):
     assert response.json()["id"] == payment_id
 
 # TA-40 - Valida que los datos obligatorios sean requeridos
-@pytest.mark.retry(retries=3, delay=5)
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_create_payment_invalid(auth_headers, create_booking):
     data = {"amount": 100, "booking_id": create_booking}
     response = api_request("post", BASE_URL + PAYMENTS, json=data, headers=auth_headers)

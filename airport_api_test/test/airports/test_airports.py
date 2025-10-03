@@ -40,7 +40,7 @@ def test_get_airport_not_found(auth_headers):
     response = api_request("get", f"{BASE_URL}{AIRPORTS}/LOST", headers=auth_headers)
     assert response.status_code == 404
 
-@pytest.mark.retry(retries=3, delay=5)
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_update_airport_success(auth_headers, create_airport):
     iata_code = create_airport
     update_data = {"iata_code": iata_code, "city": "Madrid", "country": "ES"}
@@ -55,7 +55,7 @@ def test_update_airport_invalid(auth_headers, create_airport):
     response = api_request("put", f"{BASE_URL}{AIRPORTS}/{iata_code}", json=data, headers=auth_headers)
     assert response.status_code == 422
 
-@pytest.mark.retry(retries=3, delay=5)
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_delete_airport_success(auth_headers, create_airport):
     iata_code = create_airport
     response = api_request("delete", f"{BASE_URL}{AIRPORTS}/{iata_code}", headers=auth_headers)

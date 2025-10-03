@@ -13,7 +13,7 @@ USER_INVALID_ID = "123456789"
 
 
 # TA-03 - Valida la creación de usuarios con datos válidos
-@pytest.mark.retry(retries=3, delay=5)
+@pytest.mark.flaky(reruns=3, reruns_delay=5)
 def test_create_user_valid(auth_headers, user_data):
     response = api_request("POST", f"{BASE_URL}{USERS}", json=user_data, headers=auth_headers)
     assert response.status_code == 201
