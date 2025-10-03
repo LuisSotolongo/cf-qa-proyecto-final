@@ -1,4 +1,3 @@
-from behave.tag_matcher import print_active_tags
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
